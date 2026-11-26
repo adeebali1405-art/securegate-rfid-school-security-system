@@ -1,0 +1,2016 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1120">
+<title>SecureGate — School Security System By M.Adeeb Ali Full Stack Software </title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg:#0b1120;
+    --sidebar:#10192a;
+    --panel:#131f32;
+    --panel2:#19273c;
+    --border:rgba(148,163,184,.14);
+    --text:#edf3ff;
+    --muted:#8292aa;
+    --blue:#5795ff;
+    --cyan:#42d6d0;
+    --green:#36d399;
+    --red:#ff647c;
+    --orange:#ffb454;
+    --radius:15px;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background:radial-gradient(circle at 75% 0%,rgba(43,105,190,.12),transparent 35%),var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+}
+
+button,input,select {
+    font:inherit;
+}
+
+button {
+    cursor:pointer;
+}
+
+.app {
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width:255px;
+    flex-shrink:0;
+    background:var(--sidebar);
+    border-right:1px solid var(--border);
+    padding:25px 17px;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo {
+    display:flex;
+    align-items:center;
+    gap:11px;
+    font:700 23px 'Space Grotesk';
+    margin-bottom:40px;
+}
+
+.logo-icon {
+    width:40px;
+    height:40px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background:linear-gradient(135deg,#5795ff,#3564d9);
+}
+
+.logo span {
+    color:var(--blue);
+}
+
+.nav-label {
+    color:#66768f;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    margin:17px 10px 12px;
+}
+
+.nav {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    color:var(--muted);
+    border-radius:9px;
+    margin-bottom:5px;
+    font-size:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.nav:hover,.nav.active {
+    color:white;
+    background:rgba(87,149,255,.13);
+}
+
+.nav.active {
+    border-left:3px solid var(--blue);
+}
+
+.nav-icon {
+    font-size:16px;
+}
+
+.sidebar-bottom {
+    margin-top:auto;
+}
+
+.security-card {
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--panel);
+}
+
+.security-card strong {
+    font-size:12px;
+}
+
+.security-card p {
+    font-size:10px;
+    color:var(--muted);
+    line-height:1.7;
+    margin-top:7px;
+}
+
+/* MAIN */
+
+.main {
+    flex:1;
+    min-width:0;
+}
+
+.topbar {
+    height:72px;
+    padding:0 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+}
+
+.breadcrumb {
+    color:var(--muted);
+    font-size:12px;
+}
+
+.breadcrumb strong {
+    color:white;
+}
+
+.top-right {
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.live {
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:10px;
+    color:var(--green);
+}
+
+.live-dot {
+    width:7px;
+    height:7px;
+    background:var(--green);
+    border-radius:50%;
+    box-shadow:0 0 12px var(--green);
+}
+
+.admin {
+    width:34px;
+    height:34px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#5795ff,#42d6d0);
+    border-radius:50%;
+    font-weight:800;
+    font-size:11px;
+}
+
+.content {
+    max-width:1500px;
+    margin:auto;
+    padding:30px;
+}
+
+.page-heading {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.eyebrow {
+    font-size:10px;
+    letter-spacing:2px;
+    color:var(--cyan);
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+h1 {
+    font:700 clamp(25px,4vw,34px) 'Space Grotesk';
+    letter-spacing:-1px;
+}
+
+.subtitle {
+    color:var(--muted);
+    font-size:12px;
+    margin-top:8px;
+    line-height:1.7;
+}
+
+/* BUTTONS */
+
+.btn {
+    border:1px solid var(--border);
+    background:var(--panel2);
+    color:white;
+    padding:10px 14px;
+    border-radius:9px;
+    font-size:11px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.btn:hover {
+    transform:translateY(-2px);
+    filter:brightness(1.15);
+}
+
+.btn-primary {
+    background:linear-gradient(120deg,#5795ff,#386edb);
+    border:0;
+}
+
+.btn-danger {
+    background:rgba(255,100,124,.12);
+    border-color:rgba(255,100,124,.25);
+    color:#ff8497;
+}
+
+.btn-success {
+    background:rgba(54,211,153,.12);
+    border-color:rgba(54,211,153,.25);
+    color:var(--green);
+}
+
+/* STATS */
+
+.stats {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:20px;
+}
+
+.stat {
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px;
+}
+
+.stat-top {
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.stat-icon {
+    font-size:18px;
+}
+
+.stat-value {
+    font:700 27px 'Space Grotesk';
+    margin-top:13px;
+}
+
+.stat-note {
+    font-size:10px;
+    color:var(--green);
+    margin-top:6px;
+}
+
+/* PANELS */
+
+.grid {
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:17px;
+    margin-bottom:18px;
+}
+
+.panel {
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-bottom:18px;
+}
+
+.panel-header {
+    padding:17px 19px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.panel-header h3 {
+    font:600 14px 'Space Grotesk';
+}
+
+.panel-body {
+    padding:19px;
+}
+
+/* RFID */
+
+.rfid-box {
+    background:linear-gradient(145deg,#172945,#111e33);
+    border:1px solid rgba(87,149,255,.25);
+    border-radius:13px;
+    padding:20px;
+    text-align:center;
+}
+
+.rfid-animation {
+    width:85px;
+    height:85px;
+    border-radius:50%;
+    background:rgba(87,149,255,.12);
+    border:1px solid rgba(87,149,255,.35);
+    display:grid;
+    place-items:center;
+    font-size:35px;
+    margin:0 auto 15px;
+    position:relative;
+}
+
+.rfid-animation::after {
+    content:"";
+    position:absolute;
+    inset:-7px;
+    border:1px solid rgba(87,149,255,.3);
+    border-radius:50%;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {transform:scale(.9);opacity:1}
+    100% {transform:scale(1.3);opacity:0}
+}
+
+.rfid-box h3 {
+    font:600 16px 'Space Grotesk';
+}
+
+.rfid-box p {
+    font-size:10px;
+    color:var(--muted);
+    margin:8px 0 17px;
+}
+
+.scan-input {
+    display:flex;
+    gap:8px;
+}
+
+input,select {
+    background:#0d1829;
+    color:white;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:11px;
+    outline:none;
+    min-width:0;
+    width:100%;
+    font-size:11px;
+}
+
+input:focus,select:focus {
+    border-color:var(--blue);
+}
+
+.scan-input button {
+    white-space:nowrap;
+}
+
+.rfid-message {
+    margin-top:13px;
+    min-height:17px;
+    font-size:11px;
+    color:var(--cyan);
+}
+
+/* ACCESS STATUS */
+
+.access-status {
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:14px;
+    background:var(--panel2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+.access-icon {
+    width:37px;
+    height:37px;
+    border-radius:10px;
+    display:grid;
+    place-items:center;
+    background:rgba(54,211,153,.12);
+    color:var(--green);
+    font-size:17px;
+}
+
+.access-info {
+    flex:1;
+}
+
+.access-info strong {
+    display:block;
+    font-size:11px;
+}
+
+.access-info span {
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:4px;
+}
+
+.status-pill {
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:9px;
+    background:rgba(54,211,153,.12);
+    color:var(--green);
+}
+
+.status-pill.danger {
+    background:rgba(255,100,124,.12);
+    color:var(--red);
+}
+
+/* TABLE */
+
+.table-wrap {
+    overflow-x:auto;
+}
+
+table {
+    border-collapse:collapse;
+    width:100%;
+    min-width:600px;
+}
+
+th {
+    color:var(--muted);
+    font-size:9px;
+    font-weight:600;
+    text-align:left;
+    padding:12px 15px;
+    background:#172438;
+}
+
+td {
+    padding:13px 15px;
+    border-top:1px solid var(--border);
+    font-size:10px;
+    color:#dce5f3;
+}
+
+td small {
+    display:block;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.table-name {
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.table-avatar {
+    width:29px;
+    height:29px;
+    display:grid;
+    place-items:center;
+    border-radius:8px;
+    background:rgba(87,149,255,.14);
+    color:#91b7ff;
+    font-weight:700;
+}
+
+.pill {
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:20px;
+    background:rgba(54,211,153,.12);
+    color:var(--green);
+    font-size:9px;
+}
+
+.pill.red {
+    color:var(--red);
+    background:rgba(255,100,124,.12);
+}
+
+.pill.orange {
+    color:var(--orange);
+    background:rgba(255,180,84,.12);
+}
+
+/* FORMS */
+
+.form-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px;
+}
+
+.form-group label {
+    display:block;
+    font-size:10px;
+    color:var(--muted);
+    margin-bottom:7px;
+}
+
+.form-actions {
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+}
+
+/* SEARCH */
+
+.toolbar {
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.toolbar input {
+    max-width:260px;
+}
+
+.toolbar select {
+    max-width:160px;
+}
+
+/* ALERTS */
+
+.alert {
+    padding:13px;
+    border-radius:9px;
+    display:flex;
+    gap:11px;
+    background:rgba(255,100,124,.07);
+    border:1px solid rgba(255,100,124,.16);
+    margin-bottom:9px;
+}
+
+.alert-icon {
+    color:var(--red);
+}
+
+.alert strong {
+    font-size:11px;
+    display:block;
+}
+
+.alert p {
+    font-size:9px;
+    color:var(--muted);
+    margin-top:5px;
+}
+
+/* PAGES */
+
+.page {
+    display:none;
+}
+
+.page.active {
+    display:block;
+}
+
+.empty {
+    padding:30px;
+    text-align:center;
+    font-size:11px;
+    color:var(--muted);
+}
+
+.section-heading {
+    margin:5px 0 15px;
+    font:600 17px 'Space Grotesk';
+}
+
+.footer {
+    text-align:center;
+    color:#64748b;
+    font-size:10px;
+    padding:25px;
+}
+
+.toast {
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    background:#1c2b40;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:13px 18px;
+    font-size:11px;
+    z-index:99;
+    opacity:0;
+    transform:translateY(70px);
+    transition:.3s;
+    max-width:90vw;
+}
+
+.toast.show {
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1050px) {
+    .sidebar {width:210px}
+    .stats {grid-template-columns:repeat(2,1fr)}
+    .grid {grid-template-columns:1fr}
+}
+
+@media(max-width:700px) {
+    .sidebar {display:none}
+    .content {padding:20px 13px}
+    .topbar {padding:0 15px}
+    .page-heading {align-items:flex-start;flex-direction:column}
+    .form-grid {grid-template-columns:1fr}
+    .scan-input {flex-direction:column}
+    .stats {gap:8px}
+    .stat {padding:12px}
+    .stat-value {font-size:22px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">🛡</div>
+        Secure<span>Gate</span>
+    </div>
+
+    <div class="nav-label">MAIN MENU</div>
+
+    <div class="nav active" data-page="dashboard">
+        <span class="nav-icon">◫</span> Dashboard
+    </div>
+
+    <div class="nav" data-page="students">
+        <span class="nav-icon">♙</span> Students
+    </div>
+
+    <div class="nav" data-page="attendance">
+        <span class="nav-icon">▤</span> Attendance Logs
+    </div>
+
+    <div class="nav" data-page="visitors">
+        <span class="nav-icon">♧</span> Visitor Management
+    </div>
+
+    <div class="nav" data-page="alerts">
+        <span class="nav-icon">⚠</span> Security Alerts
+    </div>
+
+    <div class="nav-label">SYSTEM</div>
+
+    <div class="nav" data-page="settings">
+        <span class="nav-icon">⚙</span> RFID Settings
+    </div>
+
+    <div class="sidebar-bottom">
+        <div class="security-card">
+            <strong>🛡 Security Status</strong>
+            <p>RFID monitoring is active in demo mode. Hardware integration requires a compatible reader and backend.</p>
+        </div>
+    </div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="topbar">
+
+    <div class="breadcrumb">
+        SecureGate / <strong id="breadcrumb">Dashboard</strong>
+    </div>
+
+    <div class="top-right">
+        <div class="live">
+            <span class="live-dot"></span>
+            SYSTEM ONLINE
+        </div>
+        <div class="admin">AD</div>
+    </div>
+
+</header>
+
+<div class="content">
+
+<!-- DASHBOARD PAGE -->
+
+<section class="page active" id="dashboard">
+
+    <div class="page-heading">
+        <div>
+            <div class="eyebrow">SCHOOL ACCESS CONTROL SYSTEM</div>
+            <h1>Security Dashboard</h1>
+            <p class="subtitle">Monitor student access, RFID activity and campus security.</p>
+        </div>
+
+        <button class="btn btn-primary" onclick="navigate('students')">
+            + Add Student
+        </button>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="stat-top">Total Students <span>♙</span></div>
+            <div class="stat-value" id="totalStudents">0</div>
+            <div class="stat-note">Registered students</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">Present Today <span>✓</span></div>
+            <div class="stat-value" id="presentStudents">0</div>
+            <div class="stat-note">Unique student entries today</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">Currently Inside <span>⌂</span></div>
+            <div class="stat-value" id="insideStudents">0</div>
+            <div class="stat-note">Based on recorded access</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">Security Alerts <span>⚠</span></div>
+            <div class="stat-value" id="alertCount">0</div>
+            <div class="stat-note">Unrecognized RFID cards</div>
+        </div>
+
+    </div>
+
+    <div class="grid">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h3>RFID Access Terminal</h3>
+                <span class="pill">DEMO ACTIVE</span>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="rfid-box">
+
+                    <div class="rfid-animation">📡</div>
+
+                    <h3>Ready to Scan RFID Card</h3>
+
+                    <p>Scan a registered card or enter its UID below.</p>
+
+                    <div class="scan-input">
+
+                        <input id="rfidInput"
+                            placeholder="Enter RFID UID e.g. RFID001"
+                            autocomplete="off">
+
+                        <button class="btn btn-primary" id="scanBtn">
+                            Scan Card →
+                        </button>
+
+                    </div>
+
+                    <div class="rfid-message" id="rfidMessage">
+                        Waiting for RFID input...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h3>Gate Monitoring</h3>
+                <span class="pill">ACTIVE</span>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="access-status">
+                    <div class="access-icon">🚪</div>
+                    <div class="access-info">
+                        <strong>Main Entrance</strong>
+                        <span>RFID access monitoring</span>
+                    </div>
+                    <span class="status-pill">ONLINE</span>
+                </div>
+
+                <div class="access-status">
+                    <div class="access-icon">🛡</div>
+                    <div class="access-info">
+                        <strong>Security Control</strong>
+                        <span>Local demo monitoring</span>
+                    </div>
+                    <span class="status-pill">ACTIVE</span>
+                </div>
+
+                <div class="access-status">
+                    <div class="access-icon">📡</div>
+                    <div class="access-info">
+                        <strong>RFID Reader</strong>
+                        <span>Keyboard input / simulator</span>
+                    </div>
+                    <span class="status-pill">READY</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h3>Recent Access Activity</h3>
+            <button class="btn" onclick="navigate('attendance')">View All</button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STUDENT</th>
+                        <th>RFID UID</th>
+                        <th>TIME</th>
+                        <th>ACCESS TYPE</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody id="recentLogs"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- STUDENTS PAGE -->
+
+<section class="page" id="students">
+
+    <div class="page-heading">
+        <div>
+            <div class="eyebrow">STUDENT DATABASE</div>
+            <h1>Student Management</h1>
+            <p class="subtitle">Register students and assign RFID identification cards.</p>
+        </div>
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h3>Register New Student</h3>
+            <span class="pill">NEW RECORD</span>
+        </div>
+
+        <div class="panel-body">
+
+            <form id="studentForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input id="studentName" required placeholder="Student full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student ID</label>
+                        <input id="studentId" required placeholder="STU-1004">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class / Grade</label>
+                        <input id="studentClass" required placeholder="Class 9-A">
+                    </div>
+
+                    <div class="form-group">
+                        <label>RFID Card UID</label>
+                        <input id="studentUID" required placeholder="RFID004">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Parent / Guardian Name</label>
+                        <input id="parentName" placeholder="Guardian name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Guardian Contact</label>
+                        <input id="parentPhone" type="tel" placeholder="Contact number">
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">
+                        Register Student
+                    </button>
+
+                    <button class="btn" type="reset">
+                        Reset Form
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h3>Registered Students</h3>
+
+            <div class="toolbar">
+                <input id="studentSearch" placeholder="Search students...">
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STUDENT</th>
+                        <th>STUDENT ID</th>
+                        <th>CLASS</th>
+                        <th>RFID UID</th>
+                        <th>GUARDIAN</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTable"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ATTENDANCE PAGE -->
+
+<section class="page" id="attendance">
+
+    <div class="page-heading">
+        <div>
+            <div class="eyebrow">ACCESS HISTORY</div>
+            <h1>Attendance Logs</h1>
+            <p class="subtitle">Review RFID entry and exit records.</p>
+        </div>
+
+        <button class="btn btn-primary" onclick="exportCSV()">
+            ↓ Export CSV
+        </button>
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h3>All Access Records</h3>
+
+            <div class="toolbar">
+                <input id="logSearch" placeholder="Search records...">
+                <select id="logFilter">
+                    <option value="all">All Activity</option>
+                    <option value="ENTRY">Entry</option>
+                    <option value="EXIT">Exit</option>
+                    <option value="DENIED">Denied</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>STUDENT ID</th>
+                        <th>RFID UID</th>
+                        <th>DATE & TIME</th>
+                        <th>ACTIVITY</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceTable"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- VISITORS PAGE -->
+
+<section class="page" id="visitors">
+
+    <div class="page-heading">
+        <div>
+            <div class="eyebrow">CAMPUS VISITOR CONTROL</div>
+            <h1>Visitor Management</h1>
+            <p class="subtitle">Register and monitor authorized campus visitors.</p>
+        </div>
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h3>Register Visitor</h3>
+        </div>
+
+        <div class="panel-body">
+
+            <form id="visitorForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Visitor Full Name</label>
+                        <input id="visitorName" required placeholder="Full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input id="visitorPhone" required type="tel" placeholder="Phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Purpose of Visit</label>
+                        <input id="visitorPurpose" required placeholder="Meeting / Parent visit">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Person to Meet</label>
+                        <input id="visitorHost" required placeholder="Teacher / Principal">
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">
+                        Register Visitor
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h3>Visitor Records</h3>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>VISITOR</th>
+                        <th>CONTACT</th>
+                        <th>PURPOSE</th>
+                        <th>HOST</th>
+                        <th>CHECK-IN</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="visitorTable"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ALERTS PAGE -->
+
+<section class="page" id="alerts">
+
+    <div class="page-heading">
+        <div>
+            <div class="eyebrow">SECURITY MONITORING</div>
+            <h1>Security Alerts</h1>
+            <p class="subtitle">Review denied RFID access attempts and security events.</p>
+        </div>
+
+        <button class="btn" onclick="clearAlerts()">Clear Alerts</button>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <h3>Security Event History</h3>
+            <span class="pill red" id="alertBadge">0 Alerts</span>
+        </div>
+
+        <div class="panel-body" id="alertList"></div>
+    </div>
+
+</section>
+
+<!-- SETTINGS PAGE -->
+
+<section class="page" id="settings">
+
+    <div class="page-heading">
+        <div>
+            <div class="eyebrow">SYSTEM CONFIGURATION</div>
+            <h1>RFID Settings</h1>
+            <p class="subtitle">Configure the demo reader and access behavior.</p>
+        </div>
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h3>Reader Configuration</h3>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Reader Name</label>
+                    <input id="readerName" value="Main Entrance Reader">
+                </div>
+
+                <div class="form-group">
+                    <label>Reader Location</label>
+                    <input id="readerLocation" value="School Main Gate">
+                </div>
+
+                <div class="form-group">
+                    <label>Access Mode</label>
+                    <select id="accessMode">
+                        <option value="toggle">Automatic Entry / Exit Toggle</option>
+                        <option value="entry">Entry Only</option>
+                        <option value="exit">Exit Only</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Reader Status</label>
+                    <select id="readerStatus">
+                        <option value="active">Active</option>
+                        <option value="disabled">Disabled</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" id="saveSettings">
+                    Save Configuration
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h3>Hardware Integration Information</h3>
+        </div>
+
+        <div class="panel-body">
+
+            <p class="subtitle">
+                This frontend demo accepts keyboard-emulated RFID input.
+                For real hardware, connect a compatible USB reader or
+                an RFID controller such as an ESP32 through a secure backend.
+            </p>
+
+            <br>
+
+            <div class="access-status">
+                <div class="access-icon">📡</div>
+                <div class="access-info">
+                    <strong>USB RFID Reader</strong>
+                    <span>Keyboard-emulation input supported</span>
+                </div>
+                <span class="status-pill">SUPPORTED</span>
+            </div>
+
+            <div class="access-status">
+                <div class="access-icon">🔌</div>
+                <div class="access-info">
+                    <strong>ESP32 / Arduino</strong>
+                    <span>Requires hardware firmware and backend integration</span>
+                </div>
+                <span class="status-pill">INTEGRATION</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+    SecureGate © 2026 · School RFID Security Management System By M.Adeeb Ali Full Stack Software 
+</footer>
+
+</div>
+</main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* =====================================
+   STORAGE AND APPLICATION STATE
+===================================== */
+
+const STORAGE_KEY = "securegate_school_v1";
+
+const defaultStudents = [
+    {
+        id:"STU-1001",
+        name:"Ahmed Khan",
+        className:"Class 9-A",
+        uid:"RFID001",
+        guardian:"Muhammad Khan",
+        phone:"03001234567"
+    },
+    {
+        id:"STU-1002",
+        name:"Ali Hassan",
+        className:"Class 8-B",
+        uid:"RFID002",
+        guardian:"Hassan Ahmed",
+        phone:"03007654321"
+    },
+    {
+        id:"STU-1003",
+        name:"Usman Ali",
+        className:"Class 10-A",
+        uid:"RFID003",
+        guardian:"Ali Raza",
+        phone:"03001112223"
+    }
+];
+
+function loadData() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+        if (saved && Array.isArray(saved.students)) {
+            return {
+                students:saved.students,
+                logs:Array.isArray(saved.logs) ? saved.logs : [],
+                alerts:Array.isArray(saved.alerts) ? saved.alerts : [],
+                visitors:Array.isArray(saved.visitors) ? saved.visitors : [],
+                inside:Array.isArray(saved.inside) ? saved.inside : [],
+                settings:saved.settings || {}
+            };
+        }
+    } catch(error) {
+        console.error("Storage error:",error);
+    }
+
+    return {
+        students:defaultStudents,
+        logs:[],
+        alerts:[],
+        visitors:[],
+        inside:[],
+        settings:{
+            readerName:"Main Entrance Reader",
+            readerLocation:"School Main Gate",
+            accessMode:"toggle",
+            readerStatus:"active"
+        }
+    };
+}
+
+const state = loadData();
+
+const $ = selector => document.querySelector(selector);
+
+function saveData() {
+    try {
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+    } catch(error) {
+        notify("Unable to save data. Browser storage may be full.");
+    }
+}
+
+/* =====================================
+   UTILITIES
+===================================== */
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g,char => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    })[char]);
+}
+
+function notify(message) {
+    const toast = $("#toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(() => toast.classList.remove("show"),2800);
+}
+
+function timestamp() {
+    return new Date().toLocaleString();
+}
+
+function todayKey() {
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+}
+
+function isToday(value) {
+    const date = new Date(value);
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}` === todayKey();
+}
+
+function initials(name) {
+    return name.split(" ")
+        .map(word => word[0])
+        .slice(0,2)
+        .join("")
+        .toUpperCase();
+}
+
+/* =====================================
+   NAVIGATION
+===================================== */
+
+function navigate(page) {
+
+    document.querySelectorAll(".page").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.querySelectorAll(".nav").forEach(item => {
+        item.classList.remove("active");
+    });
+
+    const target = document.getElementById(page);
+
+    if (!target) return;
+
+    target.classList.add("active");
+
+    const nav = document.querySelector(`[data-page="${page}"]`);
+
+    if (nav) nav.classList.add("active");
+
+    $("#breadcrumb").textContent =
+        page.charAt(0).toUpperCase()+page.slice(1);
+
+    renderAll();
+}
+
+document.querySelectorAll("[data-page]").forEach(item => {
+    item.addEventListener("click",() => {
+        navigate(item.dataset.page);
+    });
+});
+
+/* =====================================
+   DASHBOARD STATISTICS
+===================================== */
+
+function updateStats() {
+
+    const presentToday = new Set(
+        state.logs
+            .filter(log => log.type === "ENTRY" && log.status === "GRANTED" && isToday(log.time))
+            .map(log => log.studentId)
+    );
+
+    $("#totalStudents").textContent = state.students.length;
+    $("#presentStudents").textContent = presentToday.size;
+    $("#insideStudents").textContent = state.inside.length;
+    $("#alertCount").textContent = state.alerts.length;
+    $("#alertBadge").textContent = state.alerts.length+" Alerts";
+}
+
+/* =====================================
+   RFID SCANNING
+===================================== */
+
+function scanRFID(uid) {
+
+    uid = uid.trim().toUpperCase();
+
+    if (!uid) {
+        notify("Please enter an RFID UID.");
+        return;
+    }
+
+    if (state.settings.readerStatus === "disabled") {
+        $("#rfidMessage").textContent = "Reader is disabled.";
+        notify("RFID reader is disabled.");
+        return;
+    }
+
+    const student = state.students.find(
+        item => item.uid.toUpperCase() === uid
+    );
+
+    if (!student) {
+
+        const alert = {
+            id:crypto.randomUUID(),
+            uid,
+            time:new Date().toISOString(),
+            message:"Unrecognized RFID card",
+            location:state.settings.readerLocation
+        };
+
+        state.alerts.unshift(alert);
+
+        state.logs.unshift({
+            id:crypto.randomUUID(),
+            name:"Unknown Card",
+            studentId:"UNKNOWN",
+            uid,
+            time:alert.time,
+            type:"DENIED",
+            status:"DENIED"
+        });
+
+        $("#rfidMessage").textContent = "Access denied: Unknown card.";
+
+        notify("Security alert: Unrecognized RFID card.");
+
+        saveData();
+        renderAll();
+
+        return;
+    }
+
+    const inside = state.inside.includes(student.id);
+
+    let type;
+
+    if (state.settings.accessMode === "entry") {
+        type = "ENTRY";
+    } else if (state.settings.accessMode === "exit") {
+        type = "EXIT";
+    } else {
+        type = inside ? "EXIT" : "ENTRY";
+    }
+
+    if (type === "ENTRY" && inside) {
+        notify("Student is already marked inside.");
+        return;
+    }
+
+    if (type === "EXIT" && !inside && state.settings.accessMode === "toggle") {
+        notify("Student is not currently marked inside.");
+        return;
+    }
+
+    if (type === "ENTRY" && !inside) {
+        state.inside.push(student.id);
+    }
+
+    if (type === "EXIT") {
+        state.inside = state.inside.filter(id => id !== student.id);
+    }
+
+    const log = {
+        id:crypto.randomUUID(),
+        name:student.name,
+        studentId:student.id,
+        uid:student.uid,
+        time:new Date().toISOString(),
+        type,
+        status:"GRANTED"
+    };
+
+    state.logs.unshift(log);
+
+    $("#rfidMessage").textContent =
+        `✓ ${student.name} — ${type} recorded successfully.`;
+
+    notify(`${student.name}: ${type} access recorded.`);
+
+    $("#rfidInput").value = "";
+
+    saveData();
+    renderAll();
+}
+
+$("#scanBtn").addEventListener("click",() => {
+    scanRFID($("#rfidInput").value);
+});
+
+$("#rfidInput").addEventListener("keydown",event => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        scanRFID(event.target.value);
+    }
+});
+
+/* =====================================
+   STUDENT REGISTRATION
+===================================== */
+
+$("#studentForm").addEventListener("submit",event => {
+
+    event.preventDefault();
+
+    const student = {
+        id:$("#studentId").value.trim(),
+        name:$("#studentName").value.trim(),
+        className:$("#studentClass").value.trim(),
+        uid:$("#studentUID").value.trim().toUpperCase(),
+        guardian:$("#parentName").value.trim(),
+        phone:$("#parentPhone").value.trim()
+    };
+
+    if (state.students.some(item => item.id.toLowerCase() === student.id.toLowerCase())) {
+        notify("Student ID already exists.");
+        return;
+    }
+
+    if (state.students.some(item => item.uid.toUpperCase() === student.uid)) {
+        notify("RFID UID is already assigned.");
+        return;
+    }
+
+    state.students.push(student);
+
+    saveData();
+
+    event.target.reset();
+
+    renderAll();
+
+    notify("Student registered successfully.");
+});
+
+/* =====================================
+   STUDENT TABLE
+===================================== */
+
+function renderStudents(search = "") {
+
+    const filtered = state.students.filter(student =>
+        [
+            student.name,
+            student.id,
+            student.className,
+            student.uid
+        ].join(" ").toLowerCase().includes(search.toLowerCase())
+    );
+
+    $("#studentTable").innerHTML = filtered.length
+        ? filtered.map(student => `
+
+            <tr>
+
+                <td>
+                    <div class="table-name">
+                        <div class="table-avatar">
+                            ${escapeHTML(initials(student.name))}
+                        </div>
+                        ${escapeHTML(student.name)}
+                    </div>
+                </td>
+
+                <td>${escapeHTML(student.id)}</td>
+                <td>${escapeHTML(student.className)}</td>
+                <td>${escapeHTML(student.uid)}</td>
+                <td>${escapeHTML(student.guardian || "-")}</td>
+
+                <td>
+                    <button class="btn btn-danger"
+                        data-delete-student="${escapeHTML(student.id)}">
+                        Delete
+                    </button>
+                </td>
+
+            </tr>
+
+        `).join("")
+        : `<tr><td colspan="6" class="empty">No students found.</td></tr>`;
+}
+
+$("#studentSearch").addEventListener("input",event => {
+    renderStudents(event.target.value);
+});
+
+$("#studentTable").addEventListener("click",event => {
+
+    const button = event.target.closest("[data-delete-student]");
+
+    if (!button) return;
+
+    const id = button.dataset.deleteStudent;
+
+    if (!confirm("Delete this student and their current access status?")) return;
+
+    state.students = state.students.filter(item => item.id !== id);
+    state.inside = state.inside.filter(item => item !== id);
+
+    saveData();
+    renderAll();
+
+    notify("Student deleted.");
+});
+
+/* =====================================
+   ATTENDANCE LOGS
+===================================== */
+
+function renderLogs() {
+
+    const search = ($("#logSearch").value || "").toLowerCase();
+    const filter = $("#logFilter").value;
+
+    const filtered = state.logs.filter(log => {
+
+        const matchesSearch =
+            `${log.name} ${log.studentId} ${log.uid}`
+            .toLowerCase().includes(search);
+
+        const matchesFilter =
+            filter === "all" || log.type === filter;
+
+        return matchesSearch && matchesFilter;
+    });
+
+    $("#attendanceTable").innerHTML = filtered.length
+        ? filtered.map(log => `
+
+            <tr>
+
+                <td>${escapeHTML(log.name)}</td>
+                <td>${escapeHTML(log.studentId)}</td>
+                <td>${escapeHTML(log.uid)}</td>
+                <td>${escapeHTML(new Date(log.time).toLocaleString())}</td>
+                <td>${escapeHTML(log.type)}</td>
+
+                <td>
+                    <span class="pill ${log.status === "DENIED" ? "red" : ""}">
+                        ${escapeHTML(log.status)}
+                    </span>
+                </td>
+
+            </tr>
+
+        `).join("")
+        : `<tr><td colspan="6" class="empty">No attendance records found.</td></tr>`;
+}
+
+$("#logSearch").addEventListener("input",renderLogs);
+$("#logFilter").addEventListener("change",renderLogs);
+
+/* =====================================
+   RECENT ACTIVITY
+===================================== */
+
+function renderRecent() {
+
+    const logs = state.logs.slice(0,6);
+
+    $("#recentLogs").innerHTML = logs.length
+        ? logs.map(log => `
+
+            <tr>
+
+                <td>${escapeHTML(log.name)}</td>
+                <td>${escapeHTML(log.uid)}</td>
+                <td>${escapeHTML(new Date(log.time).toLocaleTimeString())}</td>
+                <td>${escapeHTML(log.type)}</td>
+
+                <td>
+                    <span class="pill ${log.status === "DENIED" ? "red" : ""}">
+                        ${escapeHTML(log.status)}
+                    </span>
+                </td>
+
+            </tr>
+
+        `).join("")
+        : `<tr><td colspan="5" class="empty">No activity recorded yet.</td></tr>`;
+}
+
+/* =====================================
+   VISITOR MANAGEMENT
+===================================== */
+
+$("#visitorForm").addEventListener("submit",event => {
+
+    event.preventDefault();
+
+    state.visitors.unshift({
+        id:crypto.randomUUID(),
+        name:$("#visitorName").value.trim(),
+        phone:$("#visitorPhone").value.trim(),
+        purpose:$("#visitorPurpose").value.trim(),
+        host:$("#visitorHost").value.trim(),
+        time:new Date().toISOString(),
+        status:"CHECKED IN"
+    });
+
+    saveData();
+
+    event.target.reset();
+
+    renderVisitors();
+
+    notify("Visitor registered successfully.");
+});
+
+function renderVisitors() {
+
+    $("#visitorTable").innerHTML = state.visitors.length
+        ? state.visitors.map(visitor => `
+
+            <tr>
+
+                <td>${escapeHTML(visitor.name)}</td>
+                <td>${escapeHTML(visitor.phone)}</td>
+                <td>${escapeHTML(visitor.purpose)}</td>
+                <td>${escapeHTML(visitor.host)}</td>
+                <td>${escapeHTML(new Date(visitor.time).toLocaleString())}</td>
+
+                <td>
+                    <span class="pill ${visitor.status === "CHECKED IN" ? "orange" : ""}">
+                        ${escapeHTML(visitor.status)}
+                    </span>
+                </td>
+
+                <td>
+                    ${visitor.status === "CHECKED IN"
+                        ? `<button class="btn btn-success" data-checkout="${visitor.id}">Check Out</button>`
+                        : "Completed"}
+                </td>
+
+            </tr>
+
+        `).join("")
+        : `<tr><td colspan="7" class="empty">No visitor records available.</td></tr>`;
+}
+
+$("#visitorTable").addEventListener("click",event => {
+
+    const button = event.target.closest("[data-checkout]");
+
+    if (!button) return;
+
+    const visitor = state.visitors.find(item =>
+        item.id === button.dataset.checkout
+    );
+
+    if (!visitor) return;
+
+    visitor.status = "CHECKED OUT";
+
+    visitor.checkoutTime = new Date().toISOString();
+
+    saveData();
+    renderVisitors();
+
+    notify("Visitor checked out.");
+});
+
+/* =====================================
+   SECURITY ALERTS
+===================================== */
+
+function renderAlerts() {
+
+    $("#alertList").innerHTML = state.alerts.length
+        ? state.alerts.map(alert => `
+
+            <div class="alert">
+
+                <div class="alert-icon">⚠</div>
+
+                <div>
+                    <strong>${escapeHTML(alert.message)}</strong>
+
+                    <p>
+                        RFID UID: ${escapeHTML(alert.uid)}
+                        · ${escapeHTML(new Date(alert.time).toLocaleString())}
+                    </p>
+
+                    <p>Location: ${escapeHTML(alert.location)}</p>
+                </div>
+
+            </div>
+
+        `).join("")
+        : `<div class="empty">No security alerts. No unknown cards have been recorded.</div>`;
+}
+
+function clearAlerts() {
+
+    if (!confirm("Clear all security alerts?")) return;
+
+    state.alerts = [];
+
+    saveData();
+    renderAll();
+
+    notify("Alerts cleared.");
+}
+
+/* =====================================
+   CSV EXPORT
+===================================== */
+
+function exportCSV() {
+
+    if (!state.logs.length) {
+        notify("No attendance records to export.");
+        return;
+    }
+
+    const headers = [
+        "Student Name",
+        "Student ID",
+        "RFID UID",
+        "Date & Time",
+        "Activity",
+        "Status"
+    ];
+
+    const rows = state.logs.map(log => [
+        log.name,
+        log.studentId,
+        log.uid,
+        new Date(log.time).toLocaleString(),
+        log.type,
+        log.status
+    ]);
+
+    const csv = [headers,...rows]
+        .map(row => row.map(value =>
+            `"${String(value).replace(/"/g,'""')}"`
+        ).join(","))
+        .join("\n");
+
+    const blob = new Blob(["\uFEFF"+csv],{
+        type:"text/csv;charset=utf-8"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "securegate-attendance.csv";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    notify("Attendance CSV exported.");
+}
+
+/* =====================================
+   SETTINGS
+===================================== */
+
+function loadSettings() {
+
+    $("#readerName").value = state.settings.readerName;
+    $("#readerLocation").value = state.settings.readerLocation;
+    $("#accessMode").value = state.settings.accessMode;
+    $("#readerStatus").value = state.settings.readerStatus;
+}
+
+$("#saveSettings").addEventListener("click",() => {
+
+    state.settings = {
+        readerName:$("#readerName").value.trim(),
+        readerLocation:$("#readerLocation").value.trim(),
+        accessMode:$("#accessMode").value,
+        readerStatus:$("#readerStatus").value
+    };
+
+    saveData();
+
+    notify("RFID settings saved.");
+});
+
+/* =====================================
+   RENDER ALL
+===================================== */
+
+function renderAll() {
+
+    updateStats();
+
+    renderStudents($("#studentSearch").value || "");
+
+    renderLogs();
+
+    renderRecent();
+
+    renderVisitors();
+
+    renderAlerts();
+
+    renderComparison();
+}
+
+/* =====================================
+   DAILY ENTRY / EXIT SUMMARY
+===================================== */
+
+function renderComparison() {
+    // Reserved for future analytics expansion.
+}
+
+/* =====================================
+   INITIALIZATION
+===================================== */
+
+function initialize() {
+
+    loadSettings();
+
+    renderAll();
+
+    console.log("SecureGate initialized.");
+    console.log("Demo RFID UIDs: RFID001, RFID002, RFID003");
+}
+
+initialize();
+
+</script>
+
+</body>
+</html>
